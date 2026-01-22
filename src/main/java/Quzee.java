@@ -17,21 +17,21 @@ public class Quzee {
         System.out.println("Hello! I'm " + CHATBOT_NAME + "\nWhat can I do for you?\n");
 
         while (true) {
-            String userInput = scanner.nextLine();
-            if (userInput.strip().equals("bye")) {
+            String userInput = scanner.nextLine().strip();
+            if (userInput.equals("bye")) {
                 System.out.println("Bye. Hope to see you again soon!\n");
                 break;
 
-            } else if (userInput.strip().equals("list")) {
+            } else if (userInput.equals("list")) {
                 System.out.println("Here are the tasks in your list:");
                 int count = 0;
                 for (Task task : database) {
                     System.out.println(++count + "." + task.toString());
                 }
 
-            } else if (userInput.strip().startsWith("mark") || userInput.strip().startsWith("unmark")) {
-                boolean toBeMarked = userInput.strip().split(" ")[0].equals("mark");
-                int index = Integer.parseInt(userInput.strip().split(" ")[1]);
+            } else if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
+                boolean toBeMarked = userInput.split(" ")[0].equals("mark");
+                int index = Integer.parseInt(userInput.split(" ")[1]);
 
                 if (index > 0 && index <= database.size()) {
                     Task task = database.get(index - 1);
@@ -49,15 +49,15 @@ public class Quzee {
                     System.out.println("Error: Task Not Found!");
                 }
 
-            } else if (userInput.strip().startsWith("todo ")) {
-                addTaskToDatabase(new ToDo(userInput.strip().substring(5)));
+            } else if (userInput.startsWith("todo ")) {
+                addTaskToDatabase(new ToDo(userInput.substring(5)));
 
-            } else if (userInput.strip().startsWith("deadline ")) {
-                String[] modifiedUserInput = userInput.strip().substring(9).split(" /by ");
+            } else if (userInput.startsWith("deadline ")) {
+                String[] modifiedUserInput = userInput.substring(9).split(" /by ");
                 addTaskToDatabase(new Deadline(modifiedUserInput[0], modifiedUserInput[1]));
 
-            } else if (userInput.strip().startsWith("event ")) {
-                String[] modifiedUserInput = userInput.strip().substring(6).split(" /from | /to ");
+            } else if (userInput.startsWith("event ")) {
+                String[] modifiedUserInput = userInput.substring(6).split(" /from | /to ");
                 addTaskToDatabase(new Event(modifiedUserInput[0], modifiedUserInput[1], modifiedUserInput[2]));
 
             } else {
