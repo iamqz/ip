@@ -1,5 +1,7 @@
 package quzee;
 
+import quzee.task.Task;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;

@@ -1,5 +1,11 @@
 package quzee;
 
+
+import quzee.task.Deadline;
+import quzee.task.Event;
+import quzee.task.Task;
+import quzee.task.ToDo;
+
 import java.util.List;
 
 public class Parser {

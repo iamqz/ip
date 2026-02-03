@@ -1,4 +1,4 @@
-package quzee;
+package quzee.task;
 
 public class ToDo extends Task {
 

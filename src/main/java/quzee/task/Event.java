@@ -1,4 +1,4 @@
-package quzee;
+package quzee.task;
 
 import java.time.LocalDateTime;
 

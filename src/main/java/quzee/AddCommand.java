@@ -1,5 +1,6 @@
 package quzee;
 
+import quzee.task.Task;
 import java.util.List;
 
 public class AddCommand extends Command {
