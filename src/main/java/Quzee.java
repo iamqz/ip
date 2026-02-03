@@ -1,26 +1,41 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
+
+import java.nio.file.Paths;
 public class Quzee {
 
     public static final String CHATBOT_NAME = "Quzee";
-    public static ArrayList<Task> database = new ArrayList<>();
+    public static List<Task> tasksList = new ArrayList<>();
 
-    private static void addTaskToDatabase(Task task) {
-        database.add(task);
+    private static void addTaskToTasksList(Task task) {
+        tasksList.add(task);
         System.out.println("Got it. I've added this task:\n" + task);
-        int size = database.size();
+        int size = tasksList.size();
         System.out.println("Now you have " + size + " task" + (size <= 1 ? "" : "s") + " in the list.");
     }
 
-    private static void removeTaskFromDatabase(int index) {
-        Task task = database.get(index);
-        database.remove(index);
+    private static void removeTaskFromTasksList(int index) {
+        Task task = tasksList.get(index);
+        tasksList.remove(index);
         System.out.println("Noted. I've removed this task:\n" + task);
-        int size = database.size();
+        int size = tasksList.size();
         System.out.println("Now you have " + size + " task" + (size <= 1 ? "" : "s") + " in the list.");
     }
 
     public static void main(String[] args) {
+        Storage storage = new Storage(Paths.get("data", "quzee.txt"));
+        try {
+            List<String> tasks = storage.readTasks();
+            for (String task : tasks) {
+                tasksList.add(Task.convertStringToTask(task));
+            }
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Hello! I'm " + CHATBOT_NAME + "\nWhat can I do for you?\n");
 
@@ -28,18 +43,27 @@ public class Quzee {
             try {
                 String userInput = scanner.nextLine().strip();
                 if (userInput.equals("bye")) {
+                    try {
+                        List<String> tasksInString = new ArrayList<>();
+                        for (Task task : tasksList) {
+                            tasksInString.add(task.convertTaskToString());
+                        }
+                        storage.writeTasks(tasksInString);
+                    } catch (IOException e) {
+                        System.err.println(e.getMessage());
+                    }
                     scanner.close(); // added
                     System.out.println("Bye. Hope to see you again soon!\n");
                     break;
 
                 } else if (userInput.equals("list")) {
 
-                    if (database.isEmpty()) {
-                        System.out.println("There are no tasks in the database.");
+                    if (tasksList.isEmpty()) {
+                        System.out.println("There are no tasks in the tasksList.");
                     } else {
                         System.out.println("Here are the tasks in your list:");
                         int count = 0;
-                        for (Task task : database) {
+                        for (Task task : tasksList) {
                             System.out.println(++count + "." + task);
                         }
                     }
@@ -54,11 +78,11 @@ public class Quzee {
 
                     int index = Integer.parseInt(modifiedUserInput[1]);
 
-                    if (index <= 0 || index > database.size()) {
+                    if (index <= 0 || index > tasksList.size()) {
                         throw new QuzeeException("For some reason, I do not have Task " + index + "!");
                     }
 
-                    Task task = database.get(index - 1);
+                    Task task = tasksList.get(index - 1);
 
                     if (modifiedUserInput[0].equals("mark")) {
                         task.markAsDone();
@@ -79,18 +103,18 @@ public class Quzee {
 
                     int index = Integer.parseInt(modifiedUserInput[1]);
 
-                    if (index <= 0 || index > database.size()) {
+                    if (index <= 0 || index > tasksList.size()) {
                         throw new QuzeeException("For some reason, I do not have Task " + index + "!");
                     }
 
-                    removeTaskFromDatabase(index - 1);
+                    removeTaskFromTasksList(index - 1);
 
                 } else if (userInput.startsWith("todo")) {
 
                     if (userInput.length() < 5) {
                         throw new QuzeeException("For some reason, the description is missing!");
                     }
-                    addTaskToDatabase(new ToDo(userInput.substring(5)));
+                    addTaskToTasksList(new ToDo(userInput.substring(5)));
 
                 } else if (userInput.startsWith("deadline")) {
 
@@ -107,7 +131,7 @@ public class Quzee {
                                 "Deadline format should be: event <description> /by <deadline>");
                     }
 
-                    addTaskToDatabase(new Deadline(modifiedUserInput[0], modifiedUserInput[1]));
+                    addTaskToTasksList(new Deadline(modifiedUserInput[0], modifiedUserInput[1]));
 
                 } else if (userInput.startsWith("event")) {
 
@@ -125,7 +149,7 @@ public class Quzee {
                         throw new QuzeeException("For some reason, invalid input format!\n" +
                                 "Event format should be: event <description> /from <start> /to <end>");
                     }
-                    addTaskToDatabase(new Event(modifiedUserInput[0], modifiedUserInput[1], modifiedUserInput[2]));
+                    addTaskToTasksList(new Event(modifiedUserInput[0], modifiedUserInput[1], modifiedUserInput[2]));
 
                 } else {
                     throw new QuzeeException("For some reason, I do not know \"" + userInput + "\"!");
