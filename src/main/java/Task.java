@@ -3,8 +3,10 @@ import java.time.format.DateTimeFormatter;
 // Solution below adapted from https://nus-cs2103-ay2526-s2.github.io/website/schedule/week2/project.html#a-classes
 public abstract class Task {
 
-    protected static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-    protected static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d MMM yyyy HH:mm");
+    protected static final String INPUT_FORMAT_STRING = "d/M/yyyy HHmm";
+    protected static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern(INPUT_FORMAT_STRING);
+    protected static final String OUTPUT_FORMAT_STRING = "d MMM yyyy HH:mm";
+    protected static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern(OUTPUT_FORMAT_STRING);
 
     protected String description;
     protected boolean isDone;

@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -123,12 +122,14 @@ public class Quzee {
                     }
 
                     if (!userInput.contains(" /by")) {
-                        throw new QuzeeException("For some reason, \"/by <deadline>\" is missing!");
+                        throw new QuzeeException("For some reason, \"/by <deadline>\" is missing!\nDate Format: "
+                                + Task.INPUT_FORMAT_STRING);
                     }
                     String[] modifiedUserInput = userInput.substring(9).split("\\s+/by\\s+");
                     if (modifiedUserInput.length < 2) {
                         throw new QuzeeException("For some reason, invalid input format!\n" +
-                                "Deadline format should be: event <description> /by <deadline>");
+                                "Deadline format should be: event <description> /by <deadline>\nDate Format: "
+                                + Task.INPUT_FORMAT_STRING);
                     }
 
                     addTaskToTasksList(new Deadline(modifiedUserInput[0], modifiedUserInput[1]));
@@ -140,14 +141,16 @@ public class Quzee {
                     }
 
                     if (!userInput.contains(" /from") || !userInput.contains(" /to")) {
-                        throw new QuzeeException("For some reason, \"/from <start> /to <end>\" is missing!");
+                        throw new QuzeeException("For some reason, \"/from <start> /to <end>\" is missing!\nDate " +
+                                "Format: " + Task.INPUT_FORMAT_STRING);
                     }
 
                     String[] modifiedUserInput = userInput.substring(6).split("\\s+/from\\s+|\\s+/to\\s+");
 
                     if (modifiedUserInput.length < 3) {
                         throw new QuzeeException("For some reason, invalid input format!\n" +
-                                "Event format should be: event <description> /from <start> /to <end>");
+                                "Event format should be: event <description> /from <start> /to <end>\nDate Format: "
+                                + Task.INPUT_FORMAT_STRING);
                     }
                     addTaskToTasksList(new Event(modifiedUserInput[0], modifiedUserInput[1], modifiedUserInput[2]));
 
