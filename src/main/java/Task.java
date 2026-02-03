@@ -20,6 +20,40 @@ public class Task {
         return (this.isDone ? "X" : " ");
     }
 
+    public static Task convertStringToTask(String string) {
+        String[] parts = string.split(" \\| ");
+
+        String type = parts[0];
+        boolean isDone = parts[1].equals("1");
+        String description = parts[2];
+
+        Task task;
+
+        switch (type) {
+        case "T":
+            task = new Task(description);
+            break;
+        case "D":
+            task = new Deadline(description, parts[3]);
+            break;
+        case "E":
+            String[] split = parts[3].split("-");
+            task = new Event(description, split[0], split[1]);
+            break;
+        default:
+            throw new IllegalArgumentException("For some reason, unknown task type: " + type);
+        }
+
+        if (isDone) {
+            task.markAsDone();
+        }
+        return task;
+    }
+
+    public String convertTaskToString() {
+        return "T | " + (this.isDone ? "1" : "0") + " | " + this.description;
+    }
+
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
