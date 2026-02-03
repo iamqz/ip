@@ -1,5 +1,10 @@
+import java.time.format.DateTimeFormatter;
+
 // Solution below adapted from https://nus-cs2103-ay2526-s2.github.io/website/schedule/week2/project.html#a-classes
-public class Task {
+public abstract class Task {
+
+    protected static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    protected static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("d MMM yyyy HH:mm");
 
     protected String description;
     protected boolean isDone;
@@ -30,18 +35,18 @@ public class Task {
         Task task;
 
         switch (type) {
-        case "T":
-            task = new Task(description);
-            break;
-        case "D":
-            task = new Deadline(description, parts[3]);
-            break;
-        case "E":
-            String[] split = parts[3].split("-");
-            task = new Event(description, split[0], split[1]);
-            break;
-        default:
-            throw new IllegalArgumentException("For some reason, unknown task type: " + type);
+            case "T":
+                task = new ToDo(description);
+                break;
+            case "D":
+                task = new Deadline(description, parts[3]);
+                break;
+            case "E":
+                String[] split = parts[3].split("-");
+                task = new Event(description, split[0], split[1]);
+                break;
+            default:
+                throw new IllegalArgumentException("For some reason, unknown task type: " + type);
         }
 
         if (isDone) {
