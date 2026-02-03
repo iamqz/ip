@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 import java.nio.file.Paths;
@@ -8,23 +7,21 @@ public class Quzee {
 
     public static final String CHATBOT_NAME = "Quzee";
     public static List<Task> tasksList = new ArrayList<>();
+    private static Ui ui;
 
     private static void addTaskToTasksList(Task task) {
         tasksList.add(task);
-        System.out.println("Got it. I've added this task:\n" + task);
-        int size = tasksList.size();
-        System.out.println("Now you have " + size + " task" + (size <= 1 ? "" : "s") + " in the list.");
+        ui.showTaskAddedMessage(task, tasksList.size());
     }
 
     private static void removeTaskFromTasksList(int index) {
         Task task = tasksList.get(index);
         tasksList.remove(index);
-        System.out.println("Noted. I've removed this task:\n" + task);
-        int size = tasksList.size();
-        System.out.println("Now you have " + size + " task" + (size <= 1 ? "" : "s") + " in the list.");
+        ui.showTaskRemovedMessage(task, tasksList.size());
     }
 
     public static void main(String[] args) {
+        ui = new Ui();
         Storage storage = new Storage(Paths.get("data", "quzee.txt"));
         try {
             List<String> tasks = storage.readTasks();
@@ -34,13 +31,11 @@ public class Quzee {
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Hello! I'm " + CHATBOT_NAME + "\nWhat can I do for you?\n");
+        ui.showWelcomeMessage();
 
         while (true) {
             try {
-                String userInput = scanner.nextLine().strip();
+                String userInput = ui.readInput();
                 if (userInput.equals("bye")) {
                     try {
                         List<String> tasksInString = new ArrayList<>();
@@ -51,8 +46,8 @@ public class Quzee {
                     } catch (IOException e) {
                         System.err.println(e.getMessage());
                     }
-                    scanner.close(); // added
-                    System.out.println("Bye. Hope to see you again soon!\n");
+                    ui.showFarewellMessage();
+                    ui.closeScanner();
                     break;
 
                 } else if (userInput.equals("list")) {
