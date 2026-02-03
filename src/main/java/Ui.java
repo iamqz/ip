@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Ui {
@@ -38,6 +40,25 @@ public class Ui {
         System.out.println("OK, I've marked this task as not done yet:\n" + task);
     }
 
+    public void showTasksList(List<Task> tasksList) {
+        if (tasksList.isEmpty()) {
+            showErrorMessage("There are no tasks in your list.");
+        } else {
+            System.out.println("Here are the tasks in your list:");
+            int count = 0;
+            for (Task task : tasksList) {
+                System.out.println(++count + ". " + task);
+            }
+        }
+    }
+
+    public void showErrorMessage(String message) {
+        System.out.println(message);
+    }
+
+    public void showDivider() {
+        System.out.println();
+    }
     public void closeScanner() {
         this.scanner.close();
     }
