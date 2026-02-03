@@ -17,7 +17,7 @@ public class Quzee {
     private static void removeTaskFromTasksList(int index) {
         Task task = tasksList.get(index);
         tasksList.remove(index);
-        ui.showTaskRemovedMessage(task, tasksList.size());
+        ui.showTaskDeletedMessage(task, tasksList.size());
     }
 
     public static void main(String[] args) {
