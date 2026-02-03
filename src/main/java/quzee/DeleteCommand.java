@@ -1,3 +1,5 @@
+package quzee;
+
 import java.util.List;
 
 public class DeleteCommand extends Command {

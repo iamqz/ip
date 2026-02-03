@@ -1,3 +1,5 @@
+package quzee;
+
 import java.time.format.DateTimeFormatter;
 
 // Solution below adapted from https://nus-cs2103-ay2526-s2.github.io/website/schedule/week2/project.html#a-classes
