@@ -1,7 +1,10 @@
-package quzee;
+package quzee.command;
+
+import java.util.List;
 
 import quzee.task.Task;
-import java.util.List;
+import quzee.Storage;
+import quzee.Ui;
 
 public class AddCommand extends Command {
 
