@@ -1,4 +1,7 @@
-import java.util.ArrayList;
+package quzee;
+
+import quzee.task.Task;
+
 import java.util.List;
 import java.util.Scanner;
 

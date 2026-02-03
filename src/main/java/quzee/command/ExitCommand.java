@@ -1,6 +1,12 @@
+package quzee.command;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import quzee.task.Task;
+import quzee.Storage;
+import quzee.Ui;
 
 public class ExitCommand extends Command {
 

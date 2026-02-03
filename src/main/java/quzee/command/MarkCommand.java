@@ -1,4 +1,10 @@
+package quzee.command;
+
 import java.util.List;
+
+import quzee.task.Task;
+import quzee.Storage;
+import quzee.Ui;
 
 public class MarkCommand extends Command {
 
