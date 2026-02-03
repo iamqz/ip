@@ -32,22 +32,15 @@ public abstract class Task {
         boolean isDone = parts[1].equals("1");
         String description = parts[2];
 
-        Task task;
-
-        switch (type) {
-            case "T":
-                task = new ToDo(description);
-                break;
-            case "D":
-                task = new Deadline(description, parts[3]);
-                break;
-            case "E":
+        Task task = switch (type) {
+            case "T" -> new ToDo(description);
+            case "D" -> new Deadline(description, parts[3]);
+            case "E" -> {
                 String[] split = parts[3].split("-");
-                task = new Event(description, split[0], split[1]);
-                break;
-            default:
-                throw new IllegalArgumentException("For some reason, unknown task type: " + type);
-        }
+                yield new Event(description, split[0], split[1]);
+            }
+            default -> throw new IllegalArgumentException("For some reason, unknown task type: " + type);
+        };
 
         if (isDone) {
             task.markAsDone();
