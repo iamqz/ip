@@ -55,6 +55,18 @@ public class Ui {
         }
     }
 
+    public void showMatchingTasksList(List<Task> tasksList) {
+        if (tasksList.isEmpty()) {
+            System.out.println("No matching tasks in your list!");
+        } else {
+            System.out.println("Here are the matching tasks in your list:");
+            int count = 0;
+            for (Task task : tasksList) {
+                System.out.println(++count + ". " + task);
+            }
+        }
+    }
+
     public void showErrorMessage(String message) {
         System.out.println(message);
     }

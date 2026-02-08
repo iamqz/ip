@@ -4,6 +4,7 @@ import quzee.command.AddCommand;
 import quzee.command.Command;
 import quzee.command.DeleteCommand;
 import quzee.command.ExitCommand;
+import quzee.command.FindCommand;
 import quzee.command.ListCommand;
 import quzee.command.MarkCommand;
 import quzee.command.UnmarkCommand;
@@ -23,6 +24,15 @@ public class Parser {
             return new ExitCommand();
         } else if (userInput.equals("list")) {
             return new ListCommand();
+        } else if (userInput.startsWith("find")) {
+
+            String[] modifiedUserInput = userInput.split("\\s+");
+
+            if (modifiedUserInput.length < 2 || modifiedUserInput[1].isEmpty()) {
+                throw new QuzeeException("For some reason, the keyword is missing!");
+            }
+            return new FindCommand(modifiedUserInput[1].trim());
+
         } else if (userInput.startsWith("delete")) {
 
             String[] modifiedUserInput = userInput.split("\\s+");
