@@ -8,6 +8,10 @@ import quzee.task.Task;
 import quzee.Storage;
 import quzee.Ui;
 
+/**
+ * Represents a command to terminate the Quzee application.
+ * This command handles saving the final task list to storage before exiting.
+ */
 public class ExitCommand extends Command {
 
     @Override
@@ -24,6 +28,11 @@ public class ExitCommand extends Command {
         ui.showFarewellMessage();
     }
 
+    /**
+     * Indicates that the application should stop running.
+     * @return Always return True.
+     */
+    @Override
     public boolean isExit() {
         return true;
     }

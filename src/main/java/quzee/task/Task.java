@@ -3,6 +3,11 @@ package quzee.task;
 import java.time.format.DateTimeFormatter;
 
 // Solution below adapted from https://nus-cs2103-ay2526-s2.github.io/website/schedule/week2/project.html#a-classes
+
+/**
+ * Represents a generic task in the Quzee application.
+ * Provides basic functionality for marking tasks as done and string conversions for Storage.
+ */
 public abstract class Task {
 
     public static final String INPUT_FORMAT_STRING = "d/M/yyyy HHmm"; // CHANGE from protected
@@ -13,22 +18,41 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Instantiates a Task with the {@code description}.
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
     }
 
+    /**
+     * Marks this task as done.
+     */
     public void markAsDone() {
         this.isDone = true;
     }
 
+    /**
+     * Marks this task as undone.
+     */
     public void markAsUndone() {
         this.isDone = false;
     }
 
+    /**
+     * Returns the task's status.
+     * @return Task's status as icon ("X" or " ").
+     */
     private String getStatusIcon() {
         return (this.isDone ? "X" : " ");
     }
 
+    /**
+     * Converts and returns an encoded task string from the storage file into a Task object.
+     * @param string The pipe-separated string representing a task.
+     * @return The corresponding Task {@code ToDo, Deadline, or Event}
+     */
     public static Task convertStringToTask(String string) {
         String[] parts = string.split(" \\| ");
 
@@ -52,10 +76,18 @@ public abstract class Task {
         return task;
     }
 
+    /**
+     * Converts and returns the task into a formatted string suitable for file storage.
+     * @return A pipe-separated string representing the task.
+     */
     public String convertTaskToString() {
         return "T | " + (this.isDone ? "1" : "0") + " | " + this.description;
     }
 
+    /**
+     * Returns the string representation of the task, including its status icon and description.
+     * @return A string formatted as "[status] description".
+     */
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;

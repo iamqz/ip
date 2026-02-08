@@ -16,8 +16,18 @@ import quzee.task.ToDo;
 
 import java.util.List;
 
+/**
+ * Parses user input into executable commands for the Quzee application.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     * @param userInput The raw input string inputted by the user.
+     * @param tasksList The current list of tasks, used for validating task indices.
+     * @return A Command object that can be executed.
+     * @throws QuzeeException If user input is invalid or incomplete.
+     */
     public static Command parse(String userInput, List<Task> tasksList) throws QuzeeException {
         if (userInput.equals("bye")) {
             return new ExitCommand();
