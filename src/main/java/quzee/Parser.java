@@ -10,13 +10,10 @@ import quzee.command.FindCommand;
 import quzee.command.ListCommand;
 import quzee.command.MarkCommand;
 import quzee.command.UnmarkCommand;
-
 import quzee.task.Deadline;
 import quzee.task.Event;
 import quzee.task.Task;
 import quzee.task.ToDo;
-
-import java.util.List;
 
 /**
  * Parses user input into executable commands for the Quzee application.
@@ -48,7 +45,7 @@ public class Parser {
 
             String[] modifiedUserInput = userInput.split("\\s+");
 
-            if  (modifiedUserInput.length == 1) {
+            if (modifiedUserInput.length == 1) {
                 throw new QuzeeException("For some reason, the Task number is missing!");
             }
 
@@ -99,8 +96,8 @@ public class Parser {
             }
             String[] modifiedUserInput = userInput.substring(9).split("\\s+/by\\s+");
             if (modifiedUserInput.length < 2) {
-                throw new QuzeeException("For some reason, invalid input format!\n" +
-                        "Deadline format should be: event <description> /by <deadline>\nDate Format: "
+                throw new QuzeeException("For some reason, invalid input format!\n"
+                        + "Deadline format should be: event <description> /by <deadline>\nDate Format: "
                         + Task.INPUT_FORMAT_STRING);
             }
 
@@ -113,15 +110,15 @@ public class Parser {
             }
 
             if (!userInput.contains(" /from") || !userInput.contains(" /to")) {
-                throw new QuzeeException("For some reason, \"/from <start> /to <end>\" is missing!\nDate " +
-                        "Format: " + Task.INPUT_FORMAT_STRING);
+                throw new QuzeeException("For some reason, \"/from <start> /to <end>\" is missing!\nDate "
+                        + "Format: " + Task.INPUT_FORMAT_STRING);
             }
 
             String[] modifiedUserInput = userInput.substring(6).split("\\s+/from\\s+|\\s+/to\\s+");
 
             if (modifiedUserInput.length < 3) {
-                throw new QuzeeException("For some reason, invalid input format!\n" +
-                        "Event format should be: event <description> /from <start> /to <end>\nDate Format: "
+                throw new QuzeeException("For some reason, invalid input format!\n"
+                        + "Event format should be: event <description> /from <start> /to <end>\nDate Format: "
                         + Task.INPUT_FORMAT_STRING);
             }
 

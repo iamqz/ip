@@ -1,13 +1,11 @@
 package quzee;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.ArrayList;
-
-import quzee.command.Command;
-import quzee.task.Task;
-
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+import quzee.task.Task;
 
 /**
  * Main class for the Quzee chatbot application.
@@ -16,8 +14,8 @@ import java.nio.file.Paths;
 public class Quzee {
 
     public static final String CHATBOT_NAME = "Quzee";
+    private static List<Task> tasksList = new ArrayList<>();
     private final Storage storage;
-    public static List<Task> tasksList = new ArrayList<>();
     private final Ui ui;
 
     /**
@@ -47,7 +45,7 @@ public class Quzee {
         while (!isExit) {
             try {
                 String userInput = ui.readInput();
-                quzee.command.Command command = Parser.parse(userInput, tasks); // Explicitly pass components
+                quzee.command.Command command = Parser.parse(userInput, tasksList); // Explicitly pass components
                 command.execute(tasksList, ui, storage);
                 isExit = command.isExit();
             } catch (QuzeeException e) {
