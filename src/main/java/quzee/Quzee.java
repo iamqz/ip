@@ -1,20 +1,11 @@
 package quzee;
 
-import quzee.command.AddCommand;
-import quzee.command.Command;
-import quzee.command.DeleteCommand;
-import quzee.command.ExitCommand;
-import quzee.command.ListCommand;
-import quzee.command.MarkCommand;
-import quzee.command.UnmarkCommand;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import quzee.task.Task;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.ArrayList;
-
-import java.nio.file.Paths;
 
 /**
  * Main class for the Quzee chatbot application.
@@ -54,21 +45,20 @@ public class Quzee {
         while (!isExit) {
             try {
                 String userInput = ui.readInput();
-                Command command = Parser.parse(userInput, tasksList);
+                quzee.command.Command command = Parser.parse(userInput, tasks); // Explicitly pass components
                 command.execute(tasksList, ui, storage);
                 isExit = command.isExit();
             } catch (QuzeeException e) {
-                System.out.println("ERROR:\n" + e.getMessage());
+                ui.showErrorMessage("ERROR:\n" + e.getMessage());
             } catch (NumberFormatException e) {
-                System.out.println("ERROR:\nTask number is invalid!");
+                ui.showErrorMessage("ERROR:\nTask number is invalid!");
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                ui.showErrorMessage(e.getMessage());
             } finally {
                 ui.showDivider();
             }
 
         }
-        ui.closeScanner();
     }
 
     /**
