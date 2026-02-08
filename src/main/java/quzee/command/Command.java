@@ -2,9 +2,9 @@ package quzee.command;
 
 import java.util.List;
 
-import quzee.task.Task;
 import quzee.Storage;
 import quzee.Ui;
+import quzee.task.Task;
 
 /**
  * Represents an executable command in the Quzee application.

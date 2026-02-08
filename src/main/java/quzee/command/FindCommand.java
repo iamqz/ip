@@ -27,7 +27,7 @@ public class FindCommand extends Command {
         List<Task> matchingTasks = new ArrayList<>();
 
         for (Task task : tasksList) {
-            if(task.toString().contains(keyword)) {
+            if (task.toString().contains(keyword)) {
                 matchingTasks.add(task);
             }
         }

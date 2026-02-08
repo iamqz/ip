@@ -61,13 +61,13 @@ public abstract class Task {
         String description = parts[2];
 
         Task task = switch (type) {
-            case "T" -> new ToDo(description);
-            case "D" -> new Deadline(description, parts[3]);
-            case "E" -> {
-                String[] split = parts[3].split("-");
-                yield new Event(description, split[0], split[1]);
-            }
-            default -> throw new IllegalArgumentException("For some reason, unknown task type: " + type);
+        case "T" -> new ToDo(description);
+        case "D" -> new Deadline(description, parts[3]);
+        case "E" -> {
+            String[] split = parts[3].split("-");
+            yield new Event(description, split[0], split[1]);
+        }
+        default -> throw new IllegalArgumentException("For some reason, unknown task type: " + type);
         };
 
         if (isDone) {

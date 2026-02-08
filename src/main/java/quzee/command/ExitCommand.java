@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import quzee.task.Task;
 import quzee.Storage;
 import quzee.Ui;
+import quzee.task.Task;
 
 /**
  * Represents a command to terminate the Quzee application.
