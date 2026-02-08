@@ -1,25 +1,17 @@
 package quzee;
 
-import quzee.command.AddCommand;
-import quzee.command.Command;
-import quzee.command.DeleteCommand;
-import quzee.command.ExitCommand;
-import quzee.command.ListCommand;
-import quzee.command.MarkCommand;
-import quzee.command.UnmarkCommand;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import quzee.task.Task;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.ArrayList;
-
-import java.nio.file.Paths;
 public class Quzee {
 
     public static final String CHATBOT_NAME = "Quzee";
     private final Storage storage;
-    public static List<Task> tasksList = new ArrayList<>();
+    public static List<Task> tasks = new ArrayList<>();
     private final Ui ui;
 
     public Quzee() {
@@ -28,7 +20,7 @@ public class Quzee {
         try {
             List<String> tasks = storage.readTasks();
             for (String task : tasks) {
-                tasksList.add(Task.convertStringToTask(task));
+                Quzee.tasks.add(Task.convertStringToTask(task));
             }
         } catch (IOException e) {
             System.err.println(e.getMessage());
@@ -41,21 +33,20 @@ public class Quzee {
         while (!isExit) {
             try {
                 String userInput = ui.readInput();
-                Command command = Parser.parse(userInput, tasksList);
-                command.execute(tasksList, ui, storage);
+                quzee.command.Command command = Parser.parse(userInput, tasks); // Explicitly pass components
+                command.execute(tasks, ui, storage);
                 isExit = command.isExit();
             } catch (QuzeeException e) {
-                System.out.println("ERROR:\n" + e.getMessage());
+                ui.showErrorMessage("ERROR:\n" + e.getMessage());
             } catch (NumberFormatException e) {
-                System.out.println("ERROR:\nTask number is invalid!");
+                ui.showErrorMessage("ERROR:\nTask number is invalid!");
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                ui.showErrorMessage(e.getMessage());
             } finally {
                 ui.showDivider();
             }
 
         }
-        ui.closeScanner();
     }
 
     public static void main(String[] args) {

@@ -1,9 +1,9 @@
 package quzee;
 
-import quzee.task.Task;
-
 import java.util.List;
 import java.util.Scanner;
+
+import quzee.task.Task;
 
 public class Ui {
 
