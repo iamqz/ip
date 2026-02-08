@@ -94,7 +94,10 @@ public class Ui {
         }
     }
 
-
+    /**
+     * Displays the list of matching tasks to the user.
+     * @param tasksList The list of matching tasks to be displayed.
+     */
     public void showMatchingTasksList(List<Task> tasksList) {
         if (tasksList.isEmpty()) {
             System.out.println("No matching tasks in your list!");
