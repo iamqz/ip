@@ -1,11 +1,13 @@
 package quzee;
 
 import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
+import quzee.command.Command;
 import quzee.task.Task;
+
+import java.nio.file.Paths;
 
 /**
  * Main class for the Quzee chatbot application.
