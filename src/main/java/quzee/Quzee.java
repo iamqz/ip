@@ -15,6 +15,11 @@ import java.util.List;
 import java.util.ArrayList;
 
 import java.nio.file.Paths;
+
+/**
+ * Main class for the Quzee chatbot application.
+ * Manages the initialisation of all the components and the application loop.
+ */
 public class Quzee {
 
     public static final String CHATBOT_NAME = "Quzee";
@@ -22,6 +27,10 @@ public class Quzee {
     public static List<Task> tasksList = new ArrayList<>();
     private final Ui ui;
 
+    /**
+     * Initialises the Quzee application, setting up the UI and Storage components.
+     * Loads existing tasks from the local storage file upon startup to {@code tasksList}.
+     */
     public Quzee() {
         this.ui = new Ui();
         this.storage = new Storage(Paths.get("data", "quzee.txt"));
@@ -35,6 +44,10 @@ public class Quzee {
         }
     }
 
+    /**
+     * Starts the chatbot's main execution loop.
+     * Continues reading user input and executing commands accordingly until the exit command is issued.
+     */
     public void run() {
         boolean isExit = false;
         ui.showWelcomeMessage();
@@ -58,6 +71,11 @@ public class Quzee {
         ui.closeScanner();
     }
 
+    /**
+     * Main entry point of the Quzee application.
+     * Instantiates the Quzee chatbot and triggers the main execution loop.
+     * @param args Command Line arguments (not used in this application).
+     */
     public static void main(String[] args) {
         new Quzee().run();
     }

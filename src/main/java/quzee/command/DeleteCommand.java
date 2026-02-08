@@ -6,10 +6,17 @@ import quzee.task.Task;
 import quzee.Storage;
 import quzee.Ui;
 
+/**
+ * Represents a command to delete a task from the task list.
+ */
 public class DeleteCommand extends Command {
 
     private final int index;
 
+    /**
+     * Constructs a DeleteCommand for the task to be deleted at the specified index.
+     * @param index The zero-based index of the task to be deleted.
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }
