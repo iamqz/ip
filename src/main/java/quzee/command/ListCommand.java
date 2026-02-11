@@ -11,7 +11,7 @@ import quzee.task.Task;
  */
 public class ListCommand extends Command {
     @Override
-    public void execute(List<Task> tasksList, Ui ui, Storage storage) {
-        ui.showTasksList(tasksList);
+    public String execute(List<Task> tasksList, Ui ui, Storage storage) {
+        return ui.showTasksList(tasksList);
     }
 }

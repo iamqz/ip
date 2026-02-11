@@ -23,7 +23,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(List<Task> tasksList, Ui ui, Storage storage) {
+    public String execute(List<Task> tasksList, Ui ui, Storage storage) {
         List<Task> matchingTasks = new ArrayList<>();
 
         for (Task task : tasksList) {
@@ -32,6 +32,6 @@ public class FindCommand extends Command {
             }
         }
 
-        ui.showMatchingTasksList(matchingTasks);
+        return ui.showMatchingTasksList(matchingTasks);
     }
 }
