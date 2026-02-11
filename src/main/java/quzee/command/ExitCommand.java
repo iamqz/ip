@@ -15,7 +15,7 @@ import quzee.task.Task;
 public class ExitCommand extends Command {
 
     @Override
-    public void execute(List<Task> tasksList, Ui ui, Storage storage) {
+    public String execute(List<Task> tasksList, Ui ui, Storage storage) {
         try {
             List<String> tasksInString = new ArrayList<>();
             for (Task task : tasksList) {
@@ -26,6 +26,7 @@ public class ExitCommand extends Command {
             ui.showErrorMessage(e.getMessage());
         }
         ui.showFarewellMessage();
+        return null;
     }
 
     /**

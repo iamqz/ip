@@ -62,6 +62,20 @@ public class Quzee {
     }
 
     /**
+     * Generates a response based on the {@code userInput}
+     * @param userInput User's input
+     * @return String-message in the format: "Quzee heard: userInput"
+     */
+    public String getResponse(String userInput) {
+        try {
+            quzee.command.Command command = Parser.parse(userInput, tasksList);
+            return command.execute(tasksList, ui, storage);
+        } catch (QuzeeException e) {
+            return "Error:\n" + e.getMessage();
+        }
+    }
+
+    /**
      * Main entry point of the Quzee application.
      * Instantiates the Quzee chatbot and triggers the main execution loop.
      * @param args Command Line arguments (not used in this application).

@@ -21,9 +21,10 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(List<Task> tasksList, Ui ui, Storage storage) {
+    public String execute(List<Task> tasksList, Ui ui, Storage storage) {
         Task toBeUnmarked = tasksList.get(index);
         toBeUnmarked.markAsUndone();
         ui.showTaskUnmarkedMessage(toBeUnmarked);
+        return null;
     }
 }

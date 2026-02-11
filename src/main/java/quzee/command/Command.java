@@ -13,11 +13,13 @@ public abstract class Command {
 
     /**
      * Executes the command's logic using the provided {@code tasksList, ui, storage}.
+     *
      * @param tasksList The list of tasks currently held by the application.
-     * @param ui The user interface used to display feedback to the user.
-     * @param storage The storage handler used to save or load tasks
+     * @param ui        The user interface used to display feedback to the user.
+     * @param storage   The storage handler used to save or load tasks
+     * @return
      */
-    public abstract void execute(List<Task> tasksList, Ui ui, Storage storage);
+    public abstract String execute(List<Task> tasksList, Ui ui, Storage storage);
 
     /**
      * Returns true if this command should cause the application to terminate.
