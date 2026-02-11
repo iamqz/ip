@@ -1,5 +1,7 @@
 package quzee;
 
+import java.util.Collections;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,7 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import java.util.Collections;
 
 // Solution below adapted from https://se-education.org/guides/tutorials/javaFxPart2.html
 
@@ -27,6 +28,11 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView imageView;
 
+    /**
+     * Creates a DialogBox
+     * @param text Text to be shown
+     * @param image Image to be shown
+     */
     public DialogBox(String text, Image image) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));

@@ -63,7 +63,7 @@ public class Ui {
      */
     public String showTaskDeletedMessage(Task task, int size) {
         return "Noted. I've removed this task:\n" + task
-                +"\nNow you have " + size + " task" + (size <= 1 ? "" : "s") + " in the list.";
+                + "\nNow you have " + size + " task" + (size <= 1 ? "" : "s") + " in the list.";
     }
 
     /**
