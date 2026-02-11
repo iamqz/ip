@@ -50,7 +50,7 @@ public class Quzee {
             try {
                 String userInput = ui.readInput();
                 quzee.command.Command command = Parser.parse(userInput, tasksList); // Explicitly pass components
-                command.execute(tasksList, ui, storage);
+                System.out.println(command.execute(tasksList, ui, storage));
                 isExit = command.isExit();
             } catch (NumberFormatException e) {
                 System.out.println(ui.showErrorMessage("Task number is invalid!"));
