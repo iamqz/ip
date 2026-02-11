@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-//    private Quzee quzee = new Quzee();
+    private final Quzee quzee = new Quzee();
 
     @Override
     public void start(Stage stage) {
@@ -23,13 +23,10 @@ public class Main extends Application {
             Scene scene = new Scene(anchorPane);
             stage.setScene(scene);
 
-            // DEBUG: Add these two lines to force a visible size
-            stage.setMinWidth(400);
-            stage.setMinHeight(600);
-
-            fxmlLoader.<MainWindow>getController().setQuzee(new Quzee());
+            fxmlLoader.<MainWindow>getController().setQuzee(quzee);
             stage.setTitle("Quzee Chatbot");
             stage.show();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

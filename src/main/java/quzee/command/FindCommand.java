@@ -32,7 +32,6 @@ public class FindCommand extends Command {
             }
         }
 
-        ui.showMatchingTasksList(matchingTasks);
-        return null;
+        return ui.showMatchingTasksList(matchingTasks);
     }
 }

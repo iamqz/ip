@@ -31,8 +31,8 @@ public class MainWindow extends AnchorPane {
     private Image dukeImage = new Image(getClass().getResourceAsStream("/images/DaDuke.png"));
 
     @FXML
-    private void initialise() {
-        scrollPane.vvalueProperty().bind(dialogContainer.spacingProperty());
+    private void initialize() {
+        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
     /**
@@ -40,6 +40,9 @@ public class MainWindow extends AnchorPane {
      */
     public void setQuzee(Quzee quzee) {
         this.quzee = quzee;
+        dialogContainer.getChildren().add(
+                DialogBox.getQuzeeDialogBox(quzee.getWelcomeMessage(), dukeImage)
+        );
     }
 
     /**
@@ -48,7 +51,7 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
+        String input = userInput.getText().strip();
         String response = quzee.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialogBox(input, userImage),

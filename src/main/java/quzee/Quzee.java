@@ -26,13 +26,17 @@ public class Quzee {
         this.ui = new Ui();
         this.storage = new Storage(Paths.get("data", "quzee.txt"));
         try {
+            tasksList.clear();
             List<String> tasks = storage.readTasks();
             for (String task : tasks) {
                 tasksList.add(Task.convertStringToTask(task));
             }
+            System.out.println("Loaded " + tasksList.size() + " tasks from storage.");
+
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+        System.out.println(ui.showWelcomeMessage());
     }
 
     /**
@@ -41,21 +45,19 @@ public class Quzee {
      */
     public void run() {
         boolean isExit = false;
-        ui.showWelcomeMessage();
+
         while (!isExit) {
             try {
                 String userInput = ui.readInput();
                 quzee.command.Command command = Parser.parse(userInput, tasksList); // Explicitly pass components
                 command.execute(tasksList, ui, storage);
                 isExit = command.isExit();
-            } catch (QuzeeException e) {
-                ui.showErrorMessage("ERROR:\n" + e.getMessage());
             } catch (NumberFormatException e) {
-                ui.showErrorMessage("ERROR:\nTask number is invalid!");
+                System.out.println(ui.showErrorMessage("Task number is invalid!"));
             } catch (Exception e) {
-                ui.showErrorMessage(e.getMessage());
+                System.out.println(ui.showErrorMessage(e.getMessage()));
             } finally {
-                ui.showDivider();
+                System.out.println(ui.showDivider());
             }
 
         }
@@ -82,5 +84,9 @@ public class Quzee {
      */
     public static void main(String[] args) {
         new Quzee().run();
+    }
+
+    public String getWelcomeMessage() {
+        return ui.showWelcomeMessage();
     }
 }

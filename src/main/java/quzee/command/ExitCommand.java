@@ -25,8 +25,7 @@ public class ExitCommand extends Command {
         } catch (IOException e) {
             ui.showErrorMessage(e.getMessage());
         }
-        ui.showFarewellMessage();
-        return null;
+        return ui.showFarewellMessage();
     }
 
     /**
