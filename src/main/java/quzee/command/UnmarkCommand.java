@@ -22,6 +22,7 @@ public class UnmarkCommand extends Command {
 
     @Override
     public String execute(List<Task> tasksList, Ui ui, Storage storage) {
+        assert this.index >= 0 && this.index < tasksList.size() : "Index is out of bounds.";
         Task toBeUnmarked = tasksList.get(index);
         toBeUnmarked.markAsUndone();
         return ui.showTaskUnmarkedMessage(toBeUnmarked);

@@ -23,6 +23,7 @@ public class MarkCommand extends Command {
 
     @Override
     public String execute(List<Task> tasksList, Ui ui, Storage storage) {
+        assert this.index >= 0 && this.index < tasksList.size() : "Index is out of bounds.";
         Task toBeMarked = tasksList.get(index);
         toBeMarked.markAsDone();
         return ui.showTaskMarkedMessage(toBeMarked);
