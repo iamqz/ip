@@ -1,7 +1,6 @@
 package quzee.command;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import quzee.Storage;
@@ -17,11 +16,9 @@ public class ExitCommand extends Command {
     @Override
     public String execute(List<Task> tasksList, Ui ui, Storage storage) {
         try {
-            List<String> tasksInString = new ArrayList<>();
-            for (Task task : tasksList) {
-                tasksInString.add(task.convertTaskToString());
-            }
-            storage.writeTasks(tasksInString);
+            storage.writeTasks(tasksList.stream()
+                    .map(Task::convertTaskToString)
+                    .toList());
         } catch (IOException e) {
             ui.showErrorMessage(e.getMessage());
         }

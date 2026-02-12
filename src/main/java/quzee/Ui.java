@@ -2,6 +2,8 @@ package quzee;
 
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import quzee.task.Task;
 
@@ -92,14 +94,12 @@ public class Ui {
     public String showTasksList(List<Task> tasksList) {
         if (tasksList.isEmpty()) {
             return showErrorMessage("There are no tasks in your list.");
-        } else {
-            StringBuilder stringBuilder = new StringBuilder("Here are the tasks in your list:\n");
-            int count = 0;
-            for (Task task : tasksList) {
-                stringBuilder.append(++count).append(". ").append(task).append("\n");
-            }
-            return stringBuilder.toString();
         }
+        String header = "Here are the tasks in your list:\n";
+        String tasks = IntStream.range(0, tasksList.size())
+                .mapToObj(i -> (i + 1) + ". " + tasksList.get(i))
+                .collect(Collectors.joining("\n"));
+        return header + tasks;
     }
 
     /**
@@ -110,14 +110,14 @@ public class Ui {
     public String showMatchingTasksList(List<Task> tasksList) {
         if (tasksList.isEmpty()) {
             return showErrorMessage("No matching tasks in your list!");
-        } else {
-            StringBuilder stringBuilder = new StringBuilder("Here are the matching tasks in your list:\n");
-            int count = 0;
-            for (Task task : tasksList) {
-                stringBuilder.append(++count).append(". ").append(task).append("\n");
-            }
-            return stringBuilder.toString();
         }
+
+        String header = "Here are the matching tasks in your list:\n";
+        String tasks = IntStream.range(0, tasksList.size())
+                .mapToObj(i -> (i + 1) + ". " + tasksList.get(i))
+                .collect(Collectors.joining("\n"));
+        return header + tasks;
+
     }
 
     /**
