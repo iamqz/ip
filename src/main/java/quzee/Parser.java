@@ -38,8 +38,6 @@ public class Parser {
 
         String arguments = modifiedUserInput.length > 1 ? modifiedUserInput[1] : "";
 
-        System.out.println("commandWord: " + commandWord);
-
         return switch (commandWord) {
         case "bye" -> new ExitCommand();
         case "list" -> new ListCommand();
