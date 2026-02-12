@@ -1,7 +1,7 @@
 package quzee.command;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import quzee.Storage;
 import quzee.Ui;
@@ -24,14 +24,9 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(List<Task> tasksList, Ui ui, Storage storage) {
-        List<Task> matchingTasks = new ArrayList<>();
 
-        for (Task task : tasksList) {
-            if (task.toString().contains(keyword)) {
-                matchingTasks.add(task);
-            }
-        }
-
-        return ui.showMatchingTasksList(matchingTasks);
+        return ui.showMatchingTasksList(tasksList.stream()
+                .filter(task -> task.toString().contains(this.keyword))
+                .collect(Collectors.toList()));
     }
 }
