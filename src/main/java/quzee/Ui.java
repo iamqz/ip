@@ -126,7 +126,7 @@ public class Ui {
      * @return Error Message.
      */
     public String showErrorMessage(String message) {
-        return "ERROR:\n" + message;
+        return "ERROR:\nFor some reason - " + message;
     }
 
     /**

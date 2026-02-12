@@ -35,7 +35,7 @@ public class Quzee {
             System.out.println("Loaded " + tasksList.size() + " tasks from storage.");
 
         } catch (IOException e) {
-            System.err.println(e.getMessage());
+            ui.showErrorMessage(e.getMessage());
         }
         System.out.println(ui.showWelcomeMessage());
     }
@@ -51,7 +51,7 @@ public class Quzee {
             try {
                 String userInput = ui.readInput();
                 quzee.command.Command command = Parser.parse(userInput, tasksList); // Explicitly pass components
-                command.execute(tasksList, ui, storage);
+                System.out.println(command.execute(tasksList, ui, storage));
                 isExit = command.isExit();
             } catch (NumberFormatException e) {
                 System.out.println(ui.showErrorMessage("Task number is invalid!"));
@@ -74,7 +74,7 @@ public class Quzee {
             quzee.command.Command command = Parser.parse(userInput, tasksList);
             return command.execute(tasksList, ui, storage);
         } catch (QuzeeException e) {
-            return "Error:\n" + e.getMessage();
+            return ui.showErrorMessage(e.getMessage());
         }
     }
 

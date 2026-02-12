@@ -23,7 +23,9 @@ public class AddCommand extends Command {
 
     @Override
     public String execute(List<Task> tasksList, Ui ui, Storage storage) {
+        int oldSize = tasksList.size();
         tasksList.add(task);
+        assert oldSize + 1 == tasksList.size(): "Size of tasksList did not increase after the addition of task";
         return ui.showTaskAddedMessage(task, tasksList.size());
     }
 }

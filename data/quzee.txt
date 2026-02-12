@@ -1,3 +1,3 @@
-E | 1 | presentation | 10/2/2026 1600-10/2/2026 1800
 T | 1 | SFI
 T | 1 | GET UR SHIT TGT!
+T | 0 | TEST

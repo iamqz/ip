@@ -67,7 +67,10 @@ public abstract class Task {
             String[] split = parts[3].split("-");
             yield new Event(description, split[0], split[1]);
         }
-        default -> throw new IllegalArgumentException("For some reason, unknown task type: " + type);
+        default -> {
+            assert false : "Unknown task type: " + type;
+            throw new IllegalArgumentException("For some reason, unknown task type: " + type);
+        }
         };
 
         if (isDone) {
