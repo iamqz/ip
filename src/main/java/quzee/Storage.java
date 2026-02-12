@@ -18,6 +18,7 @@ public class Storage {
      * @param filePath The path to the data file used for the storage of the Tasks.
      */
     public Storage(Path filePath) {
+        assert filePath != null : "filePath is null!";
         this.filePath = filePath;
     }
 
