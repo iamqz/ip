@@ -1,7 +1,6 @@
 package quzee.command;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import quzee.Storage;
 import quzee.Ui;
@@ -27,6 +26,6 @@ public class FindCommand extends Command {
 
         return ui.showMatchingTasksList(tasksList.stream()
                 .filter(task -> task.toString().contains(this.keyword))
-                .collect(Collectors.toList()));
+                .toList());
     }
 }
