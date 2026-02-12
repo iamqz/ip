@@ -34,7 +34,7 @@ public class Quzee {
             System.out.println("Loaded " + tasksList.size() + " tasks from storage.");
 
         } catch (IOException e) {
-            System.err.println(e.getMessage());
+            ui.showErrorMessage(e.getMessage());
         }
         System.out.println(ui.showWelcomeMessage());
     }
@@ -73,7 +73,7 @@ public class Quzee {
             quzee.command.Command command = Parser.parse(userInput, tasksList);
             return command.execute(tasksList, ui, storage);
         } catch (QuzeeException e) {
-            return "Error:\n" + e.getMessage();
+            return ui.showErrorMessage(e.getMessage());
         }
     }
 
