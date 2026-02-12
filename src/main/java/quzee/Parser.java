@@ -20,6 +20,11 @@ import quzee.task.ToDo;
  */
 public class Parser {
 
+    private static final String REGEX_SPACING = "\\s+";
+
+    private static final String MARKER_BY = "/by";
+    private static final String MARKER_FROM = "/from";
+    private static final String MARKER_TO = "/to";
     /**
      * Parses the user input and returns the corresponding Command object.
      * @param userInput The raw input string inputted by the user.
@@ -28,103 +33,101 @@ public class Parser {
      * @throws QuzeeException If user input is invalid or incomplete.
      */
     public static Command parse(String userInput, List<Task> tasksList) throws QuzeeException {
-        if (userInput.equals("bye")) {
-            return new ExitCommand();
-        } else if (userInput.equals("list")) {
-            return new ListCommand();
-        } else if (userInput.startsWith("find")) {
+        String[] modifiedUserInput = userInput.trim().split(REGEX_SPACING, 2);
+        String commandWord = modifiedUserInput[0].toLowerCase();
 
-            String[] modifiedUserInput = userInput.split("\\s+");
+        String arguments = modifiedUserInput.length > 1 ? modifiedUserInput[1] : "";
 
-            if (modifiedUserInput.length < 2 || modifiedUserInput[1].isEmpty()) {
-                throw new QuzeeException("For some reason, the keyword is missing!");
-            }
-            return new FindCommand(modifiedUserInput[1].trim());
+        return switch (commandWord) {
+        case "bye" -> new ExitCommand();
+        case "list" -> new ListCommand();
+        case "find" -> helperFind(arguments);
+        case "delete" -> helperDelete(arguments, tasksList);
+        case "mark" -> helperMark(arguments, tasksList);
+        case "unmark" -> helperUnmark(arguments, tasksList);
+        case "todo" -> helperTodo(arguments);
+        case "deadline" -> helperDeadline(arguments);
+        case "event" -> helperEvent(arguments);
+        default -> throw new QuzeeException("Unknown command: " + commandWord);
+        };
+    }
 
-        } else if (userInput.startsWith("delete")) {
-
-            String[] modifiedUserInput = userInput.split("\\s+");
-
-            if (modifiedUserInput.length == 1) {
-                throw new QuzeeException("For some reason, the Task number is missing!");
-            }
-
-            int index = Integer.parseInt(modifiedUserInput[1]);
-
-            if (index <= 0 || index > tasksList.size()) {
-                throw new QuzeeException("For some reason, I do not have Task " + index + "!");
-            }
-
-            return new DeleteCommand(index - 1);
-
-        } else if (userInput.startsWith("mark") || userInput.startsWith("unmark")) {
-
-            String[] modifiedUserInput = userInput.split("\\s+");
-
-            if (modifiedUserInput.length == 1) {
-                throw new QuzeeException("For some reason, the Task number is missing!");
-            }
-
-            int index = Integer.parseInt(modifiedUserInput[1]);
-
-            if (index <= 0 || index > tasksList.size()) {
-                throw new QuzeeException("For some reason, I do not have Task " + index + "!");
-            }
-
-            if (modifiedUserInput[0].equals("mark")) {
-                return new MarkCommand(index - 1);
-            } else {
-                return new UnmarkCommand(index - 1);
-            }
-
-        } else if (userInput.startsWith("todo")) {
-
-            if (userInput.length() < 5) {
-                throw new QuzeeException("For some reason, the description is missing!");
-            }
-            return new AddCommand(new ToDo(userInput.substring(5)));
-
-        } else if (userInput.startsWith("deadline")) {
-
-            if (userInput.length() < 9) {
-                throw new QuzeeException("For some reason, the description and deadline are missing!");
-            }
-
-            if (!userInput.contains(" /by")) {
-                throw new QuzeeException("For some reason, \"/by <deadline>\" is missing!\nDate Format: "
-                        + Task.INPUT_FORMAT_STRING);
-            }
-            String[] modifiedUserInput = userInput.substring(9).split("\\s+/by\\s+");
-            if (modifiedUserInput.length < 2) {
-                throw new QuzeeException("For some reason, invalid input format!\n"
-                        + "Deadline format should be: event <description> /by <deadline>\nDate Format: "
-                        + Task.INPUT_FORMAT_STRING);
-            }
-
-            return new AddCommand(new Deadline(modifiedUserInput[0], modifiedUserInput[1]));
-
-        } else if (userInput.startsWith("event")) {
-
-            if (userInput.length() < 6) {
-                throw new QuzeeException("For some reason, the description and time periods are missing!");
-            }
-
-            if (!userInput.contains(" /from") || !userInput.contains(" /to")) {
-                throw new QuzeeException("For some reason, \"/from <start> /to <end>\" is missing!\nDate "
-                        + "Format: " + Task.INPUT_FORMAT_STRING);
-            }
-
-            String[] modifiedUserInput = userInput.substring(6).split("\\s+/from\\s+|\\s+/to\\s+");
-
-            if (modifiedUserInput.length < 3) {
-                throw new QuzeeException("For some reason, invalid input format!\n"
-                        + "Event format should be: event <description> /from <start> /to <end>\nDate Format: "
-                        + Task.INPUT_FORMAT_STRING);
-            }
-
-            return new AddCommand(new Event(modifiedUserInput[0], modifiedUserInput[1], modifiedUserInput[2]));
-        } else {
-            throw new QuzeeException("For some reason, I do not know \"" + userInput + "\"!");
+    private static Command helperFind(String arguments) throws QuzeeException {
+        if (arguments.trim().isEmpty()) {
+            throw new QuzeeException("The keyword is missing!");
         }
+        return new FindCommand(arguments);
+    }
+
+    /**
+     * Helper function to validate and convert String-coded index into int-index.
+     * Used in helperDelete, helperMark, helperUnmark.
+     * @param arguments String-coded index.
+     * @param tasksList The list of tasks.
+     * @return int-coded index (0-indexed).
+     * @throws QuzeeException QuzeeException is thrown when input is invalid.
+     */
+    private static int validateAndParseIndex(String arguments, List<Task> tasksList) throws QuzeeException {
+        if (arguments.isEmpty()) {
+            throw new QuzeeException("Task number is missing!");
+        }
+
+        int index = Integer.parseInt(arguments);
+        boolean isValidIndex = index > 0 && index <= tasksList.size();
+
+        if (!isValidIndex) {
+            throw new QuzeeException("Non-existing Task " + index + "!");
+        }
+        return index - 1;
+    }
+
+    private static Command helperDelete(String arguments, List<Task> tasksList) throws QuzeeException {
+
+        return new DeleteCommand(validateAndParseIndex(arguments, tasksList));
+    }
+
+    private static Command helperMark(String arguments, List<Task> tasksList) throws QuzeeException {
+
+        return new MarkCommand(validateAndParseIndex(arguments, tasksList));
+    }
+
+    private static Command helperUnmark(String arguments, List<Task> tasksList) throws QuzeeException {
+
+        return new UnmarkCommand(validateAndParseIndex(arguments, tasksList));
+    }
+
+    private static Command helperTodo(String arguments) throws QuzeeException {
+
+        if (arguments.isEmpty()) {
+            throw new QuzeeException("The description is missing!");
+        }
+
+        return new AddCommand(new ToDo(arguments));
+    }
+
+    private static Command helperDeadline(String arguments) throws QuzeeException {
+
+        String[] temp = arguments.split(MARKER_BY, 2);
+        boolean isValidInput = temp.length == 2 && !temp[0].isEmpty() && !temp[1].isEmpty();
+
+        if (!isValidInput) {
+            throw new QuzeeException("Invalid input format!\n"
+                    + "Deadline format should be: deadline <description> " + MARKER_BY + " <deadline>\nDate Format: "
+                    + Task.INPUT_FORMAT_STRING);
+        }
+        return new AddCommand(new Deadline(temp[0].strip(), temp[1].strip()));
+    }
+
+    private static Command helperEvent(String arguments) throws QuzeeException {
+
+        String[] temp = arguments.split(MARKER_FROM + "|" + MARKER_TO, 2);
+        boolean isValidInput = temp.length == 3 && !temp[0].isEmpty() && !temp[1].isEmpty() && !temp[2].isEmpty();
+
+        if (!isValidInput) {
+            throw new QuzeeException("Invalid input format!\n"
+                    + "Event format should be: event <description> " + MARKER_FROM + " <start> " + MARKER_TO
+                    + " <end>\nDate Format: " + Task.INPUT_FORMAT_STRING);
+        }
+        return new AddCommand(new Event(temp[0].strip(), temp[1].strip(), temp[2].strip()));
     }
 }
