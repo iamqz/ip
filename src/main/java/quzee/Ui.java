@@ -93,13 +93,9 @@ public class Ui {
      */
     public String showTasksList(List<Task> tasksList) {
         if (tasksList.isEmpty()) {
-            return showErrorMessage("There are no tasks in your list.");
+            return "There are no tasks in your list.";
         }
-        String header = "Here are the tasks in your list:\n";
-        String tasks = IntStream.range(0, tasksList.size())
-                .mapToObj(i -> (i + 1) + ". " + tasksList.get(i))
-                .collect(Collectors.joining("\n"));
-        return header + tasks;
+        return "Here are the tasks in your list:\n" + parseListFormat(tasksList);
     }
 
     /**
@@ -109,15 +105,31 @@ public class Ui {
      */
     public String showMatchingTasksList(List<Task> tasksList) {
         if (tasksList.isEmpty()) {
-            return showErrorMessage("No matching tasks in your list!");
+            return "No matching tasks in your list!";
         }
 
-        String header = "Here are the matching tasks in your list:\n";
-        String tasks = IntStream.range(0, tasksList.size())
+        return "Here are the matching tasks in your list:\n" + parseListFormat(tasksList);
+
+    }
+
+    /**
+     * Displays the list of reminders to the user.
+     * @param tasksList The list of reminders to be displayed.
+     * @return The list of reminders.
+     */
+    public String showRemindingTasksList(List<Task> tasksList) {
+        if (tasksList.isEmpty()) {
+            return "You have no upcoming deadlines or events in the next 3 days!";
+        }
+
+        return "Here are the reminders in your list:\n" + parseListFormat(tasksList);
+
+    }
+
+    private String parseListFormat(List<Task> tasksList) {
+        return IntStream.range(0, tasksList.size())
                 .mapToObj(i -> (i + 1) + ". " + tasksList.get(i))
                 .collect(Collectors.joining("\n"));
-        return header + tasks;
-
     }
 
     /**

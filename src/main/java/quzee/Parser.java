@@ -9,6 +9,7 @@ import quzee.command.ExitCommand;
 import quzee.command.FindCommand;
 import quzee.command.ListCommand;
 import quzee.command.MarkCommand;
+import quzee.command.RemindCommand;
 import quzee.command.UnmarkCommand;
 import quzee.task.Deadline;
 import quzee.task.Event;
@@ -41,6 +42,7 @@ public class Parser {
         return switch (commandWord) {
         case "bye" -> new ExitCommand();
         case "list" -> new ListCommand();
+        case "remind" -> new RemindCommand();
         case "find" -> helperFind(arguments);
         case "delete" -> helperDelete(arguments, tasksList);
         case "mark" -> helperMark(arguments, tasksList);
@@ -120,7 +122,8 @@ public class Parser {
 
     private static Command helperEvent(String arguments) throws QuzeeException {
 
-        String[] temp = arguments.split(MARKER_FROM + "|" + MARKER_TO, 2);
+        String[] temp = arguments.split(MARKER_FROM + "|" + MARKER_TO, 3);
+        System.out.println(temp[0] + " " + temp[1] + " " + temp[2]);
         boolean isValidInput = temp.length == 3 && !temp[0].isEmpty() && !temp[1].isEmpty() && !temp[2].isEmpty();
 
         if (!isValidInput) {
