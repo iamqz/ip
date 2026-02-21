@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 // Solution below adapted from https://se-education.org/guides/tutorials/javaFxPart2.html
 
@@ -45,6 +46,9 @@ public class DialogBox extends HBox {
 
         label.setText(text);
         imageView.setImage(image);
+
+        Circle imageViewCircle = new Circle(25.0, 25.0, 25.0);
+        imageView.setClip(imageViewCircle);
     }
 
     private void flip() {
