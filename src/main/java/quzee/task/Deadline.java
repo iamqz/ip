@@ -1,8 +1,9 @@
 package quzee.task;
 
-import quzee.QuzeeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+import quzee.QuzeeException;
 
 /**
  * Represents a "Deadline" type task in the Quzee application.

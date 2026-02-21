@@ -1,8 +1,9 @@
 package quzee.task;
 
-import quzee.QuzeeException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
+
+import quzee.QuzeeException;
 
 /**
  * Represents an "Event" type task in the Quzee application.

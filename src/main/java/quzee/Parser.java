@@ -108,28 +108,38 @@ public class Parser {
     }
 
     private static Command helperDeadline(String arguments) throws QuzeeException {
+        String errorMessage = "Invalid input format!\n"
+                + "Deadline format should be: deadline <description> " + MARKER_BY + " <deadline>\nDate Format: "
+                + Task.INPUT_FORMAT_STRING;
+
+        if (!arguments.contains(MARKER_BY)) {
+            throw new QuzeeException(errorMessage);
+        }
 
         String[] temp = arguments.split(MARKER_BY, 2);
         boolean isValidInput = temp.length == 2 && !temp[0].isEmpty() && !temp[1].isEmpty();
 
         if (!isValidInput) {
-            throw new QuzeeException("Invalid input format!\n"
-                    + "Deadline format should be: deadline <description> " + MARKER_BY + " <deadline>\nDate Format: "
-                    + Task.INPUT_FORMAT_STRING);
+            throw new QuzeeException(errorMessage);
         }
         return new AddCommand(new Deadline(temp[0].strip(), temp[1].strip()));
     }
 
     private static Command helperEvent(String arguments) throws QuzeeException {
+        String errorMessage = "Invalid input format!\n"
+                + "Event format should be: event <description> " + MARKER_FROM + " <start> " + MARKER_TO
+                + " <end>\nDate Format: " + Task.INPUT_FORMAT_STRING;
+
+        if (!arguments.contains(MARKER_FROM) || !arguments.contains(MARKER_TO)) {
+            throw new QuzeeException(errorMessage);
+        }
 
         String[] temp = arguments.split(MARKER_FROM + "|" + MARKER_TO, 3);
         System.out.println(temp[0] + " " + temp[1] + " " + temp[2]);
-        boolean isValidInput = temp.length == 3 && !temp[0].isEmpty() && !temp[1].isEmpty() && !temp[2].isEmpty();
+        boolean isValidInput = temp.length == 3 && !temp[0].isBlank() && !temp[1].isBlank() && !temp[2].isBlank();
 
         if (!isValidInput) {
-            throw new QuzeeException("Invalid input format!\n"
-                    + "Event format should be: event <description> " + MARKER_FROM + " <start> " + MARKER_TO
-                    + " <end>\nDate Format: " + Task.INPUT_FORMAT_STRING);
+            throw new QuzeeException(errorMessage);
         }
         return new AddCommand(new Event(temp[0].strip(), temp[1].strip(), temp[2].strip()));
     }
