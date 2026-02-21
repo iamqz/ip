@@ -21,6 +21,14 @@ public class ParserTest {
     public void testParse_unknownCommand_returnsQuzeeException() throws QuzeeException {
         QuzeeException quzeeException = assertThrows(QuzeeException.class, () ->
                 Parser.parse("INVALID", new ArrayList<>()));
-        assertEquals("For some reason, I do not know \"INVALID\"!", quzeeException.getMessage());
+        assertEquals("Unknown command: invalid", quzeeException.getMessage());
+    }
+
+    @Test
+    public void testParse_invalidEvent_throwsQuzeeException() {
+        // Missing /from or /to markers are caught
+        QuzeeException exception = assertThrows(QuzeeException.class, () ->
+                Parser.parse("event test /from 21/2/2026 2359", new ArrayList<>()));
+        assertTrue(exception.getMessage().contains("Invalid input format"));
     }
 }
