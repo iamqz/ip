@@ -1,6 +1,7 @@
 package quzee;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +28,14 @@ public class Quzee {
         this.storage = new Storage(Paths.get("data", "quzee.txt"));
         try {
             tasksList.clear();
-
-            storage.readTasks().stream()
-                    .map(Task::convertStringToTask)
-                    .forEach(tasksList::add);
-
+            List<String> lines = storage.readTasks();
+            for (String line : lines) {
+                try {
+                    tasksList.add(Task.convertStringToTask(line));
+                } catch (QuzeeException e) {
+                    ui.showErrorMessage(e.getMessage());
+                }
+            }
             System.out.println("Loaded " + tasksList.size() + " tasks from storage.");
 
         } catch (IOException e) {
