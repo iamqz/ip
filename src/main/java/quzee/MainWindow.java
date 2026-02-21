@@ -32,7 +32,10 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     private void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        // New listener to adapt height during changes
+        dialogContainer.heightProperty().addListener((observable) -> {
+            scrollPane.setVvalue(1.0);
+        });
     }
 
     /**

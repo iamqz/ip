@@ -25,6 +25,10 @@ public class Main extends Application {
 
             fxmlLoader.<MainWindow>getController().setQuzee(quzee);
             stage.setTitle("Quzee Chatbot");
+
+            stage.setResizable(true);
+            stage.setMinWidth(417.0); // Set a minimum width to prevent UI glitching
+            stage.setMinHeight(600.0);
             stage.show();
 
         } catch (Exception e) {
