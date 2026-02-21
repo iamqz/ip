@@ -55,11 +55,15 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialogBox(String text, Image image) {
-        return new DialogBox(text, image);
+        var temp = new DialogBox(text, image);
+        temp.label.getStyleClass().add("user-label");
+        return temp;
     }
+
 
     public static DialogBox getQuzeeDialogBox(String text, Image image) {
         var temp = new DialogBox(text, image);
+        temp.label.getStyleClass().add("quzee-label");
         temp.flip();
         return temp;
     }
