@@ -26,7 +26,7 @@ public class DeleteCommand extends Command {
         int oldSize = tasksList.size();
         Task toBeDeleted = tasksList.get(index);
         tasksList.remove(index);
-        assert oldSize + 1 == tasksList.size() : "Size of tasksList did not decrease after the deletion of task";
+        assert oldSize - 1 == tasksList.size() : "Size of tasksList did not decrease after the deletion of task";
         return ui.showTaskDeletedMessage(toBeDeleted, tasksList.size());
     }
 }
