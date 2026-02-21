@@ -1,6 +1,9 @@
 package quzee.task;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
+import quzee.QuzeeException;
 
 /**
  * Represents an "Event" type task in the Quzee application.
@@ -16,10 +19,15 @@ public class Event extends Task {
      * @param start The start of the task.
      * @param end The end of the task.
      */
-    public Event(String description, String start, String end) {
+    public Event(String description, String start, String end) throws QuzeeException {
         super(description);
-        this.start = LocalDateTime.parse(start, INPUT_FORMAT);
-        this.end = LocalDateTime.parse(end, INPUT_FORMAT);
+        try {
+            this.start = LocalDateTime.parse(start, INPUT_FORMAT);
+            this.end = LocalDateTime.parse(end, INPUT_FORMAT);
+        } catch (DateTimeParseException e) {
+            throw new QuzeeException(e.getMessage());
+        }
+
     }
 
     @Override

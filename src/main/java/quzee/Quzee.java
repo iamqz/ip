@@ -27,11 +27,14 @@ public class Quzee {
         this.storage = new Storage(Paths.get("data", "quzee.txt"));
         try {
             tasksList.clear();
-
-            storage.readTasks().stream()
-                    .map(Task::convertStringToTask)
-                    .forEach(tasksList::add);
-
+            List<String> lines = storage.readTasks();
+            for (String line : lines) {
+                try {
+                    tasksList.add(Task.convertStringToTask(line));
+                } catch (QuzeeException e) {
+                    ui.showErrorMessage(e.getMessage());
+                }
+            }
             System.out.println("Loaded " + tasksList.size() + " tasks from storage.");
 
         } catch (IOException e) {

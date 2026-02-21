@@ -1,6 +1,9 @@
 package quzee.task;
 
 import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
+
+import quzee.QuzeeException;
 
 // Solution below adapted from https://nus-cs2103-ay2526-s2.github.io/website/schedule/week2/project.html#a-classes
 
@@ -10,8 +13,12 @@ import java.time.format.DateTimeFormatter;
  */
 public abstract class Task {
 
-    public static final String INPUT_FORMAT_STRING = "d/M/yyyy HHmm"; // CHANGE from protected
-    protected static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern(INPUT_FORMAT_STRING);
+    // uuuu: to satisfy ResolverStyle.STRICT
+    // /M/ to allow both 02 and 2
+    public static final String INPUT_FORMAT_STRING = "d/M/uuuu HHmm"; // CHANGE from protected
+    protected static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern(INPUT_FORMAT_STRING)
+            .withResolverStyle(ResolverStyle.STRICT);
+
     protected static final String OUTPUT_FORMAT_STRING = "d MMM yyyy HH:mm";
     protected static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern(OUTPUT_FORMAT_STRING);
 
@@ -53,7 +60,7 @@ public abstract class Task {
      * @param string The pipe-separated string representing a task.
      * @return The corresponding Task {@code ToDo, Deadline, or Event}
      */
-    public static Task convertStringToTask(String string) {
+    public static Task convertStringToTask(String string) throws QuzeeException {
         String[] parts = string.split(" \\| ");
 
         String type = parts[0];

@@ -1,6 +1,9 @@
 package quzee.task;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
+import quzee.QuzeeException;
 
 /**
  * Represents a "Deadline" type task in the Quzee application.
@@ -14,9 +17,13 @@ public class Deadline extends Task {
      * @param description The description of the task.
      * @param deadline The deadline of the task.
      */
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, String deadline) throws QuzeeException {
         super(description);
-        this.deadline = LocalDateTime.parse(deadline, INPUT_FORMAT);
+        try {
+            this.deadline = LocalDateTime.parse(deadline, INPUT_FORMAT);
+        } catch (DateTimeParseException e) {
+            throw new QuzeeException(e.getMessage());
+        }
     }
 
     @Override
