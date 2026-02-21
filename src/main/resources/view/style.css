@@ -1,0 +1,30 @@
+/* Plain background as default */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Bubble style (default): */
+.label {
+    -fx-background-color: white;
+    -fx-padding: 10 15 10 15;
+    -fx-background-radius: 18;
+    -fx-border-radius: 18;
+    -fx-border-width: 1;
+    -fx-text-fill: #2C2C2C;
+    -fx-font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* Text bubble customisation: */
+.user-label {
+    -fx-background-color: #0078D7;
+}
+
+.quzee-label {
+    -fx-background-color: #E9E9EB;
+}
