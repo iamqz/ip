@@ -58,7 +58,7 @@ public abstract class Task {
     /**
      * Converts and returns an encoded task string from the storage file into a Task object.
      * @param string The pipe-separated string representing a task.
-     * @return The corresponding Task {@code ToDo, Deadline, or Event}
+     * @return The corresponding Task {@code ToDo, Deadline, or Event}.
      */
     public static Task convertStringToTask(String string) throws QuzeeException {
         String[] parts = string.split(" \\| ");

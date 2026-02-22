@@ -9,6 +9,10 @@ import javafx.application.Application;
  */
 public class Launcher {
 
+    /**
+     * Main method of the Launcher.
+     * @param args (if any) for the method.
+     */
     public static void main(String[] args) {
         Application.launch(Main.class, args);
     }

@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Controller for the main GUI
+ * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
 
@@ -39,7 +39,7 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Inject the Quzee instance
+     * Injects the Quzee instance.
      */
     public void setQuzee(Quzee quzee) {
         this.quzee = quzee;

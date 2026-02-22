@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 // Solution below adapted from https://se-education.org/guides/tutorials/javaFxPart1.html
 
 /**
- * GUI for Quzee using FXML
+ * GUI for Quzee using FXML.
  */
 public class Main extends Application {
 

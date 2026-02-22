@@ -68,9 +68,9 @@ public class Quzee {
     }
 
     /**
-     * Generates a response based on the {@code userInput}
-     * @param userInput User's input
-     * @return String-message in the format: "Quzee heard: userInput"
+     * Generates a response based on the {@code userInput}.
+     * @param userInput User's input.
+     * @return String-message in the format: "Quzee heard: userInput".
      */
     public String getResponse(String userInput) {
         try {

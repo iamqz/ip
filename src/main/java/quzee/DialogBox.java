@@ -17,9 +17,9 @@ import javafx.scene.shape.Circle;
 // Solution below adapted from https://se-education.org/guides/tutorials/javaFxPart2.html
 
 /**
- * DialogBox component for reusability
+ * DialogBox component for reusability.
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
- * and a label containing text from the speaker
+ * and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
 
@@ -30,9 +30,9 @@ public class DialogBox extends HBox {
     private ImageView imageView;
 
     /**
-     * Creates a DialogBox
-     * @param text Text to be shown
-     * @param image Image to be shown
+     * Creates a DialogBox.
+     * @param text Text to be shown.
+     * @param image Image to be shown.
      */
     public DialogBox(String text, Image image) {
         try {
@@ -58,13 +58,24 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Returns the dialog box of the user.
+     * @param text User Input.
+     * @param image User Image.
+     * @return The created DialogBox.
+     */
     public static DialogBox getUserDialogBox(String text, Image image) {
         var temp = new DialogBox(text, image);
         temp.label.getStyleClass().add("user-label");
         return temp;
     }
 
-
+    /**
+     * Returns the dialog box of the quzee.
+     * @param text User Input.
+     * @param image User Image.
+     * @return The created DialogBox.
+     */
     public static DialogBox getQuzeeDialogBox(String text, Image image) {
         var temp = new DialogBox(text, image);
         temp.label.getStyleClass().add("quzee-label");

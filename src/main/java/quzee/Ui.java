@@ -47,7 +47,7 @@ public class Ui {
     }
 
     /**
-     * Displays the successful addition of the task
+     * Displays the successful addition of the task.
      * @param task The added task.
      * @param size The size of the {@code tasksList} after addition.
      * @return Acknowledgement message that the task has been added.
@@ -58,7 +58,7 @@ public class Ui {
     }
 
     /**
-     * Displays the successful deletion of the task
+     * Displays the successful deletion of the task.
      * @param task The deleted task.
      * @param size The size of the {@code tasksList} after deletion.
      * @return Acknowledgement message that the task has been deleted.
@@ -69,7 +69,7 @@ public class Ui {
     }
 
     /**
-     * Displays that the task has been marked
+     * Displays that the task has been marked.
      * @param task The marked task.
      * @return Acknowledgement message that the task has been marked.
      */
@@ -78,7 +78,7 @@ public class Ui {
     }
 
     /**
-     * Displays that the task has been unmarked
+     * Displays that the task has been unmarked.
      * @param task The unmarked task.
      * @return Acknowledgement message that the task has been unmarked.
      */
@@ -142,7 +142,7 @@ public class Ui {
     }
 
     /**
-     * Displays the divider between each user input
+     * Displays the divider between each user input.
      * @return An empty line divider.
      */
     public String showDivider() {
@@ -150,7 +150,7 @@ public class Ui {
     }
 
     /**
-     * Close the scanner.
+     * Closes the scanner.
      */
     public void closeScanner() {
         this.scanner.close();

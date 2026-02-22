@@ -17,7 +17,6 @@ public abstract class Command {
      * @param tasksList The list of tasks currently held by the application.
      * @param ui        The user interface used to display feedback to the user.
      * @param storage   The storage handler used to save or load tasks
-     * @return
      */
     public abstract String execute(List<Task> tasksList, Ui ui, Storage storage);
 
