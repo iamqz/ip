@@ -41,6 +41,11 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Example: `find CS2103`
 
+### Checking Upcoming Tasks: `remind`
+Filters and displays all deadline and event tasks occurring within the next 3 days.
+
+Format: `remind`
+
 ### Marking Progress: `mark`
 Marks a task as completed.
 
